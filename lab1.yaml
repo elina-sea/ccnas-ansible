@@ -1,0 +1,13 @@
+# Lab 1 playbook
+---
+- name: Collect info from routers
+  hosts: routers
+  gather_facts: no
+  
+  tasks:
+  - name: Get interfaces and Routing Table
+    ios_command:
+      commands:
+        - show ip int br
+        - show ip route
+        - show arp
