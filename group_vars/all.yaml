@@ -1,3 +1,5 @@
-ntp:
-
-syslog:
+#lab 2
+#I took ip of nist ntp server time-a-g.nist.gov 
+ntp_ip: 129.6.15.28
+#address of Ubuntu vm (managing host)
+syslog_ip: 192.168.102.1

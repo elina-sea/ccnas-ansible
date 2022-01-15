@@ -1,10 +1,37 @@
 ---
-- name: Configure nasic setting 
+- name: Configure ntp server for client
+  hosts: ntp_clients    
+  gather_facts: no
+  tasks:
+    - name: Configure ntp server
+      ios_config:
+        lines: 
+          - ntp server {{ ntp_ip }}
+
+- name: Configure basic setting 
   hosts: routers
   gather_facts: no
-
   tasks:
     - name: Configure hosnames
       ios_config:
         lines:
           - hostname {{ inventory_hostname }}
+
+# to debug
+    - name: Setup EEM to show executed lines on routers   
+      ios_config:
+        parents:
+          - event manager applet show_me_commands
+        lines:
+          - event cli pattern ".*" sync no skip no
+          - action 1.0 syslog msg "$_cli_msg"
+
+    - name: configure syslog_server
+      ios_config:
+        lines:
+          - logging host {{ syslog_ip }}
+      when: ansible_network_os == 'ios'
+
+    - name: save running to startup when modified
+      ios_config:
+        save_when: modified
