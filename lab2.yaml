@@ -12,10 +12,11 @@
   hosts: routers
   gather_facts: no
   tasks:
-    - name: Configure hosnames
+    - name: Configure hosnames and password encryption
       ios_config:
         lines:
           - hostname {{ inventory_hostname }}
+          - service password-encryption
 
 # to debug
     - name: Setup EEM to show executed lines on routers   
@@ -35,3 +36,4 @@
     - name: save running to startup when modified
       ios_config:
         save_when: modified
+

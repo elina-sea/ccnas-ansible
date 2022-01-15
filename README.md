@@ -15,3 +15,12 @@ ansible -i hosts routers -m ios_command -a "commands='sh ip route'" -e ansible_c
 ```
 ansible -i hosts routers -m ios_command -a "commands='sh arp'" -e ansible_connection=network_cli -e ansible_network_os=ios -u admin --ask-pass --become
 ```
+
+## Lab 2 Outputs:
+** Check NTP Server: **
+```
+show run | be ntp
+```
+![](./img/show-ntp.png)
+
+
