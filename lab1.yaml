@@ -5,9 +5,13 @@
   gather_facts: no
   
   tasks:
-  - name: Get interfaces and Routing Table
-    ios_command:
-      commands:
-        - show ip int br
-        - show ip route
-        - show arp
+    - name: Get interfaces and Routing Table
+      ios_command:
+        commands:
+          - show ip int br
+          - show ip route
+          - show arp
+      register: router_output
+  
+    - debug:
+        msg: "{{ router_output.stdout_lines }}"

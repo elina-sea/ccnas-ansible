@@ -1,0 +1,10 @@
+---
+- name: Configure nasic setting 
+  hosts: routers
+  gather_facts: no
+
+  tasks:
+    - name: Configure hosnames
+      ios_config:
+        lines:
+          - hostname {{ inventory_hostname }}
