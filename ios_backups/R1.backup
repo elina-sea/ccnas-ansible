@@ -1,0 +1,197 @@
+Building configuration...
+
+Current configuration : 4422 bytes
+!
+! Last configuration change at 20:06:54 UTC Sat Jan 15 2022 by admin
+!
+version 16.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+platform console virtual
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+ip domain name ccnasecurity.com
+!
+!
+!
+login on-success log
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-2792160820
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2792160820
+ revocation-check none
+ rsakeypair TP-self-signed-2792160820
+!
+!
+crypto pki certificate chain TP-self-signed-2792160820
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 32373932 31363038 3230301E 170D3232 30313135 31303330 
+  35325A17 0D333030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 37393231 
+  36303832 30308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 0100C4E4 72481E0C 7BBAE99D 73B12688 313CF19D 361FC270 35405754 
+  FAA8BED9 3C45D068 0EB4578F 834EF147 ADC124B5 F56CCDCD E613DBDD 99122A64 
+  6514705E 12D812AD 75033F7A 80A3BBF9 3D467507 8DDE7F6D DBEE1087 EF7D178C 
+  CC4F77E8 5E7FB126 F758F27A 6A93AD91 C09D0AFF 39D9626D 613ECD63 709E4EC3 
+  24A14F1B 518657C5 E9FB7530 0353A9CE A6CF4C97 9B4ABCC8 BB65129C A6B7B818 
+  EF586F20 C8CCD108 16085D5B C5B4FBF7 79D1F004 C101B709 D8F02DEA FE5C3463 
+  5A70F94E 0B3AFE5D 4C97793A E3E43889 8B046DA8 9A201FD3 4C4F69C3 F53A55D9 
+  2C46F207 672F4DAC C1E1E63C CFB4ADF2 32CDD944 BCC13166 C066BD0D 8D1E0B8E 
+  AE8B3BA7 6D250203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 141379F1 18C2F61C D013AD7A 4AFEF1D6 8538EA71 
+  F6301D06 03551D0E 04160414 1379F118 C2F61CD0 13AD7A4A FEF1D685 38EA71F6 
+  300D0609 2A864886 F70D0101 05050003 82010100 1D3BAEFE 2F5F092E 118860DC 
+  CBC37071 22CB4E56 386E7AED C0B0F33A 34103440 224BD493 CFA36BE0 88608BDA 
+  4E8ED50E 5588070F 2B3B19AB 61FC982F 5EDCC532 1BDA9BF7 7650279F 4C642CAC 
+  D8EDAC96 BD424B98 746F832F CAC7696C 13BFD207 8D244151 53408E10 DB034529 
+  7CD42D45 7B454A60 A134B5EB 6E17F268 D1DF1525 D0901D87 F29E035F C71D6904 
+  A109C648 00BA57D7 D045594D A1B23D71 7995E41A 802DE699 876C3145 EA6E12F9 
+  988A112C 2C749F03 35EE86E8 EDA83FB3 300E88F6 3EF4E1BF 95E3E263 94476280 
+  1FA2B41A 7C6708DF 16B85FB0 6470F42E 140485CB AF1DDEBD F0EFADF3 4B3B602F 
+  2F8154A9 D57BE638 E15880E2 EF4F9C4B DD2C034C
+  	quit
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9XDKCM447MA
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+netconf-yang
+!
+restconf
+!
+username cisco privilege 15 password 7 030752180500701E1D48
+username admin privilege 15 secret 5 $1$eXXB$PSgXmbyuqyqWpK5gPMkox1
+username elina secret 5 $1$3vte$pahZePQ4V4dh8nsVkVWRr1
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface GigabitEthernet1
+ description VBox
+ ip address dhcp
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+ip forward-protocol nd
+no ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh version 2
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr aes128-cbc 3des-cbc aes192-cbc aes256-cbc
+!
+logging host 192.168.102.1
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+banner motd ^C
+*                                           *
+**                                         **
+***                                       ***
+***  Cisco Networking Academy             ***
+***                                       ***
+***  This software is provided for        ***
+***   Educational Purposes                ***
+***    Only in Networking Academies       ***
+***                                       ***
+**                                         **
+*                                           *
+^C
+!
+line con 0
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ exec-timeout 5 0
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+ntp server 129.6.15.28
+ntp server 192.168.56.103
+!
+!
+!
+!
+event manager applet show_me_commands
+ event cli pattern ".*" sync no skip no
+ action 1.0 syslog msg "$_cli_msg"
+!
+end

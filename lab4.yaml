@@ -1,0 +1,6 @@
+---
+- name: Configure ospf with Jinja
+  tasks:
+    - name: Upload cfg file
+      ios_config:
+        src: ospf.j2

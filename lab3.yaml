@@ -1,0 +1,93 @@
+---
+- name: Configure basic setting 
+  hosts: R1  
+  gather_facts: no
+  tasks:
+    - name: Configure hostname, ntp. passwd encryption
+      ios_config:
+        lines:
+          - hostname {{ inventory_hostname }}
+          - service password-encryption
+          - ntp server {{ ntp_ip }}
+
+# to debug
+    - name: Setup EEM to show executed lines on routers   
+      ios_config:
+        parents:
+          - event manager applet show_me_commands
+        lines:
+          - event cli pattern ".*" sync no skip no
+          - action 1.0 syslog msg "$_cli_msg"
+
+    - name: configure syslog_server
+      ios_config:
+        lines:
+          - logging host {{ syslog_ip }}
+      when: ansible_network_os == 'ios'
+
+    - name: save running to startup when modified
+      ios_config:
+        save_when: changed
+
+###
+- name: Backup configurations
+  hosts: R1
+  gather_facts: no
+  tasks:
+    - name: Gather facts
+      ios_facts:  
+      register: ios_changes
+
+    - name: Backup configurations
+      ios_config:
+        backup: yes
+        backup_options:
+          filename: "{{ inventory_hostname }}.backup"
+          dir_path: ./ios_backups/
+      when: ios_changes.changed
+
+###
+- name: Create ACL
+  hosts: R1
+  gather_facts: no
+  tasks:
+    - name: ACL
+      ios_config:
+        before:
+          - no ip access-list extended 101
+        parents:
+          - ip access-list extended 101
+        lines: 
+          - permit tcp host {{ ansible_server }} any
+        after:
+          - line vty 0 4
+          - access-class 101 in
+        replace: block
+        match: exact
+      register: ios_changes
+
+- name: Collect ans save additional info on devices
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Gather facts
+      ios_facts:  
+      register: ios_facts
+
+    - name: Display gathered facts in the output
+      debug:
+        msg:
+          - "Model is {{ ios_facts['ansible_facts']['ansible_net_hostname'] }}"
+          - "Model is {{ ios_facts['ansible_facts']['ansible_net_model'] }}"
+          - "Serial number is {{ ios_facts['ansible_facts']['ansible_net_serialnum'] }}"
+          - "IOS type is {{ ios_facts['ansible_facts']['ansible_net_iostype'] }}"
+          - "IOS version is {{ ios_facts['ansible_facts']['ansible_net_version'] }}"
+
+    - copy:
+        content: |-
+          - "The Hostname is {{ ios_facts['ansible_facts']['ansible_net_hostname'] }}"
+          - "The Model is {{ ios_facts['ansible_facts']['ansible_net_model'] }}"
+          - "The Serial number is {{ ios_facts['ansible_facts']['ansible_net_serialnum'] }}"
+          - "The IOS type is {{ ios_facts['ansible_facts']['ansible_net_iostype'] }}"
+          - "The IOS version is {{ ios_facts['ansible_facts']['ansible_net_version'] }}"
+        dest: "./reports/{{ inventory_hostname }}.info"

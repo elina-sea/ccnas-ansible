@@ -2,4 +2,8 @@
 #I took ip of nist ntp server time-a-g.nist.gov 
 ntp_ip: 129.6.15.28
 #address of Ubuntu vm (managing host)
-syslog_ip: 192.168.102.1
+syslog_ip: 192.168.56.104
+
+#lab3
+ansible_server: 192.168.56.104
+permitted_hosts: "{{ ansible_server }}"
