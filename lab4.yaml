@@ -1,6 +1,18 @@
 ---
 - name: Configure ospf with Jinja
+  hosts: routers
+  gather_facts: no
   tasks:
     - name: Upload cfg file
       ios_config:
         src: ospf.j2
+
+#testing templates
+    - name: Template
+      template:
+        src: loopbacks.j2
+        dest: test.txt
+
+    - name: Configure loopbacks
+      ios_config:
+        src: loopbacks.j2

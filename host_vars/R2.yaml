@@ -1,17 +1,17 @@
-inventory_hostname: R1
-inventory_ip: 192.168.56.103
+inventory_hostname: R2
+inventory_ip: 192.168.56.105
 
 #lab4
-rid: 1.1.1.1
+rid: 2.2.2.2
 
 loopbacks:
   - name: lo0
-    ip: 10.1.0.1 #/26
+    ip: 10.1.0.2 #/26
     ip_netmask: 255.255.255.192
     description: Office area
     ospf_area: 1
   - name: lo1
-    ip: 10.3.0.1 #/25
+    ip: 10.3.0.2 #/25
     ip_netmask: 255.255.255.128
     description: Conference area
     ospf_area: 2

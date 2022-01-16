@@ -7,3 +7,13 @@ syslog_ip: 192.168.56.104
 #lab3
 ansible_server: 192.168.56.104
 permitted_hosts: "{{ ansible_server }}"
+
+#lab4
+ospf_mgmt_net: 192.168.56.0
+ospf__mgmt_wild: 0.0.0.255
+
+ospf_off_net: 192.168.56.0
+ospf__off_wild: 0.0.0.255
+
+ospf_conf_net: 192.168.56.0
+ospf__conf_wild: 0.0.0.255

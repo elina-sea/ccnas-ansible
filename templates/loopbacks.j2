@@ -1,0 +1,5 @@
+{% for i in loopbacks %}
+interface {{ i.name }}
+ ip address {{ i.ip }} {{ i.ip_netmask }}
+ no shut
+{% endfor %}
