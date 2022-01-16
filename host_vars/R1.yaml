@@ -6,10 +6,10 @@ rid: 1.1.1.1
 
 loopbacks:
   - name: lo0
-    ip: 10.1.0.1 #/26
+    ip: 10.1.0.1/26
     ip_netmask: 255.255.255.192
     ospf_area: 1
   - name: lo1
-    ip: 10.3.0.1 #/25
+    ip: 10.3.0.1/25
     ip_netmask: 255.255.255.128
     ospf_area: 2

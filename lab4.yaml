@@ -21,6 +21,16 @@
 #      template:
 #        src: loopbacks.j2
 #        dest: test-lo.txt
+#    - name: ospf template
+#      template:
+#        src: ospf_auth.j2
+#        dest: test-auth.txt
+
+### check: show ip ospf interface Gi0
+
+    - name: Add authentication to OSPF mgmt int
+      ios_config:
+        src: ospf_auth.j2
 
 ###
     - name: Collect ospf neighbor outputs
@@ -43,5 +53,9 @@
     - debug:
         msg: 
           - "Number of OSPF learned routes: {{ ospf_routes.stdout[0] | regex_findall('O\\D{8}\\d{1}') | count }}"
+
+    - name: save running to startup when modified
+      ios_config:
+        save_when: always
 
     

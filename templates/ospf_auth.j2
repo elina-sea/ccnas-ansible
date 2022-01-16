@@ -1,0 +1,5 @@
+int {{ mgmt_int }}
+ ip ospf message-digest-key 1 md5 {{ ospf_mgmt_pass }}
+ ip ospf authentication message-digest
+router ospf 1
+ area 0 authentication message-digest
