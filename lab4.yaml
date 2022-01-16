@@ -3,16 +3,23 @@
   hosts: routers
   gather_facts: no
   tasks:
-    - name: Upload cfg file
+    - name: Configure loopbacks
+      ios_config:
+        src: loopbacks.j2
+
+    - name: Upload ospf cfg file
       ios_config:
         src: ospf.j2
 
 #testing templates
-    - name: Template
+    - name: ospf template
+      template:
+        src: ospf.j2
+        dest: test-ospf.txt
+
+    - name: ospf template
       template:
         src: loopbacks.j2
-        dest: test.txt
+        dest: test-lo.txt
 
-    - name: Configure loopbacks
-      ios_config:
-        src: loopbacks.j2
+    

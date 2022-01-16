@@ -1,3 +1,6 @@
 router ospf 1
  router-id {{ rid }}
  network {{ ospf_mgmt_net }} {{ ospf__mgmt_wild }} area 0
+{% for i in loopbacks %}
+ network {{ i.ip_net }} {{ i.ip_wild }} area {{ i.ospf_area }}
+{% endfor %}

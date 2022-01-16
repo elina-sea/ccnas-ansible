@@ -1,5 +1,5 @@
 router ospf 1
- router-id 1.1.1.1
+ router-id 2.2.2.2
  network 192.168.56.0 0.0.0.255 area 0
  network 10.1.0.0 0.0.0.63 area 1
  network 10.3.0.0 0.0.0.127 area 2
