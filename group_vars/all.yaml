@@ -9,5 +9,15 @@ ansible_server: 192.168.56.104
 permitted_hosts: "{{ ansible_server }}"
 
 #lab4
-ospf_mgmt_net: 192.168.56.0
-ospf__mgmt_wild: 0.0.0.255
+ospf_areas:
+  - num: 0
+    ip_net: 192.168.56.1
+    ip_wild: 0.0.0.255
+  - num: 1
+    ip_net: 10.1.0.0
+    ip_wild: 0.0.0.63
+  - num: 2
+    ip_net: 10.3.0.0
+    ip_wild: 0.0.0.127
+    
+

@@ -7,15 +7,9 @@ rid: 2.2.2.2
 loopbacks:
   - name: lo0
     ip: 10.1.0.2 #/26
-    ip_net: 10.1.0.0
     ip_netmask: 255.255.255.192
-    ip_wild: 0.0.0.63
-    description: Office area
     ospf_area: 1
   - name: lo1
     ip: 10.3.0.2 #/25
-    ip_net: 10.3.0.0
     ip_netmask: 255.255.255.128
-    ip_wild: 0.0.0.127
-    description: Conference area
     ospf_area: 2
