@@ -1,6 +1,6 @@
 {% for i in loopbacks %}
 interface {{ i.name }}
- ip address {{ i.ip }} {{ i.ip_netmask }}
+ ip address {{ i.ip | ipaddr('address')}} {{ i.ip | ipaddr('netmask')}}
  ip ospf 1 area {{ i.ospf_area }}
  no shut
 {% endfor %}
