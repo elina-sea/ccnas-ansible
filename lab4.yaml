@@ -12,14 +12,36 @@
         src: ospf.j2
 
 #testing templates
-    - name: ospf template
-      template:
-        src: ospf.j2
-        dest: test-ospf.txt
+#    - name: ospf template
+#      template:
+#        src: ospf.j2
+#        dest: test-ospf.txt
+#
+#    - name: ospf template
+#      template:
+#        src: loopbacks.j2
+#        dest: test-lo.txt
 
-    - name: ospf template
-      template:
-        src: loopbacks.j2
-        dest: test-lo.txt
+###
+    - name: Collect ospf neighbor outputs
+      ios_command:
+        commands:
+          - show ip ospf neighbor
+      register: ospf_neighbors
+
+    - name: Collect ospf route outputs
+      ios_command:
+        commands:
+          - show ip route ospf
+      register: ospf_routes
+
+    - debug:
+        msg: 
+          - "{{ inventory_hostname }} OSPF Neighbors:"
+          - "{{ ospf_neighbors.stdout[0] | regex_findall('(?:[0-9]{1}\\.){3}[0-9]{1}') }}"
+
+    - debug:
+        msg: 
+          - "Number of OSPF learned routes: {{ ospf_routes.stdout[0] | regex_findall('O\\D{8}\\d{1}') | count }}"
 
     
